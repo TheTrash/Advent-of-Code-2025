@@ -1,12 +1,3 @@
-lines = open("input.txt").read().splitlines()
-
-
-couples = lines[0].split(",")
-#print(couples)
-
-res = 0
-for c in couples:
-    t= c.split("-")
 
 
 def tmp(number, split= 2):
@@ -29,12 +20,15 @@ def test(number):
         if tmp(number,e) == True:
             return True
 
-res = 0
-for c in couples:
-    t= c.split("-")
-    #print(t[0], t[1])
-    for e in range(int(t[0]),int(t[1])+1,1):
-        if test(e):
-            res += e
 
-print(res)
+if __name__ == "__main__":
+    lines = open("input.txt").read().splitlines()
+    couples = lines[0].split(",")
+    res = 0
+    for c in couples:
+        t = c.split("-")
+        for e in range(int(t[0]),int(t[1])+1,1):
+            if test(e):
+                res += e
+
+    print(res)
