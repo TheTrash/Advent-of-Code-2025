@@ -7,7 +7,7 @@ if __name__ == "__main__":
     lines = open("input.txt").read().splitlines()
     ranges = []
     res = 0
-    big_range = []
+    
     for e in lines:
         if e == "":
             break
@@ -19,12 +19,8 @@ if __name__ == "__main__":
     # prima
     ranges = sorted(ranges, reverse=False)
 
+    big_range = [c for c in ranges.pop(0)]
     for i,e in zip(range(len(ranges)),ranges):
-        print(e)
-        if big_range == []:
-            big_range.append(e[0])
-            big_range.append(e[1])
-        
         # se l'ultima frontiera è minore del nuovo numero, sono sicuramente davanti ad un nuovo intervallo
         if big_range[len(big_range)-1] < e[0]:
             big_range.append(e[0])
