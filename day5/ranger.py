@@ -20,15 +20,15 @@ if __name__ == "__main__":
     ranges = sorted(ranges, reverse=False)
 
     big_range = [c for c in ranges.pop(0)]
-    for i,e in zip(range(len(ranges)),ranges):
+    for e in ranges:
         # se l'ultima frontiera è minore del nuovo numero, sono sicuramente davanti ad un nuovo intervallo
-        if big_range[len(big_range)-1] < e[0]:
+        if big_range[-1] < e[0]:
             big_range.append(e[0])
             big_range.append(e[1])
 
         # se la frontiera è maggiore del primo numero dell'intervallo E il secondo numero è più grande è un intervallo che parte 
         # dentro quello vecchio e finisce dopo, aggiorno la frontiera.
-        if big_range[len(big_range)-1] >= e[0] and big_range[len(big_range)-1] < e[1]:
+        if big_range[-1] >= e[0] and big_range[-1] < e[1]:
             big_range.pop()
             big_range.append(e[1])
         
