@@ -1,5 +1,8 @@
+# PART 1
+
 import re
-lines = open("test.txt").read().splitlines()
+from itertools import product
+lines = open("input.txt").read().splitlines()
 
 def press(panel,button):
     # in input prendo 
@@ -15,13 +18,6 @@ def press(panel,button):
 
     return panel
 
-def rec(panel, button):
-    new_panel = press(panel, button)
-    if new_panel == panel_goal:
-        return True
-    else:
-        pass
-
 res = 0
 for s in lines:
     # 1. panel_goal: prendo quello che c'è tra [ e ]
@@ -31,33 +27,33 @@ for s in lines:
     buttons = []
     for b in buttons_raw:
         nums = [int(x) for x in b.split(',') if x]
-        # se c'è un solo numero: int semplice (3)
-        # se ce ne sono due: tupla (1, 3)
+        # se c'è un solo numero: int semplice (3,)
+
         buttons.append(tuple(nums))
 
     # 3. jolts: prendo quello che c'è tra { e } e lo trasformo in set di int
     jolts = {int(x) for x in re.search(r'\{([^}]*)\}', s).group(1).split(',')}
 
-
-
-
     panel = ["."]* (len(panel_goal))
     print(panel, panel_goal, buttons)
     pressed = []
-    for i in range(len(buttons)):
-        combination = []
-        panel = ["."]* (len(panel_goal))
-        #print("new loop ------ ")
-        for button in buttons[i:]:
-            panel = press(panel,button)
-            combination.append(button)
-            if panel == panel_goal:
-                print(combination, panel, panel_goal, panel == panel_goal)
-                pressed.append((combination, panel, len(combination)))
+
+    find = False
+    for i in range(1, len(buttons) + 1):
+        for sol in product(buttons, repeat=i):
+            panel = ["."]* (len(panel_goal))
+            for button in sol:    
+                panel = press(panel,button)
+                if panel == panel_goal:
+                    pressed.append(sol)
+                    print(sol)
+                    res += len(sol)
+                    find = True
+                    break
+            if find == True:
                 break
-        #print(" ------ ")
+        if find == True:
+            break
 
 
-    pressed.sort(key=lambda t: t[2])
-    print(pressed[0][2])
-    res += pressed[0][2]
+print(res)
