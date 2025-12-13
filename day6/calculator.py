@@ -18,7 +18,5 @@ for i in range(len(mat)-1):
                 res[j] +=  int(mat[i][j])
             elif mat[4][j] == "*":
                 res[j] *=  int(mat[i][j])
-  
- 
 
 print(sum(res))
